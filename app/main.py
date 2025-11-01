@@ -2,7 +2,7 @@ import pkgutil
 from pathlib import Path
 import streamlit as st
 
-from ui import style_sidebar
+from tabs.ui import style_sidebar
 from tabs.overview import render as render_overview
 from tabs.ohlc import render as render_ohlc
 from tabs.predictions import render as render_predictions
