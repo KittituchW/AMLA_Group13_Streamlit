@@ -164,14 +164,15 @@ def render(coin: str, days: int):
     # ---------- HEADER ----------
     col_title, col_btn = st.columns([6, 1])
     with col_title:
-        st.subheader(f"Tomorrow's Predicted HIGH — {coin}")
+        # was: st.subheader(f"Tomorrow's Predicted HIGH — {coin}")
+        st.markdown(
+            f"<h2 style='color:#fff; margin:0;'>Tomorrow's Predicted HIGH — {coin}</h2>",
+            unsafe_allow_html=True
+        )
     with col_btn:
         st.markdown("<div style='text-align:right;'>", unsafe_allow_html=True)
         refresh_clicked = st.button("↻ Refresh", use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
-
-    if refresh_clicked:
-        st.cache_data.clear()
 
     # ---------- PREWARM GUARD ----------
     ready_key = f"pred_ready_{coin}"
@@ -206,19 +207,26 @@ def render(coin: str, days: int):
     delta_pct = (pred["predictedHigh"] - current_price) / max(current_price, 1e-6) * 100
 
     with st.container():
-        st.caption(f"Based on {pred['modelName']}")
+        # was: st.caption(f"Based on {pred['modelName']}")
+        st.markdown(
+            f"<div style='color:rgba(255,255,255,.8); font-size:.9rem; margin-top:2px;'>"
+            f"Based on {pred['modelName']}"
+            f"</div>",
+            unsafe_allow_html=True
+        )
 
         cols = st.columns([2, 1, 7])
         with cols[0]:
             st.markdown(
-                f"<div style='font-size:40px;font-weight:800;'>${pred['predictedHigh']:,.2f}</div>",
+                f"<div style='font-size:40px; font-weight:800; color:#fff;'>${pred['predictedHigh']:,.2f}</div>",
                 unsafe_allow_html=True,
             )
-        with cols[0]:
+        # was: with cols[0]:   <-- this caused the pill to stack under the number
+        with cols[1]:
             pill_color = "#22c55e" if delta_pct >= 0 else "#ef4444"
             st.markdown(
-                f"<div style='display:inline-block;padding:6px 10px;border-radius:999px;background:{pill_color};"
-                f"color:white;font-weight:600;'>{delta_pct:+.2f}%</div>",
+                f"<div style='display:inline-block;padding:6px 10px;border-radius:999px;"
+                f"background:{pill_color}; color:#fff; font-weight:600;'>{delta_pct:+.2f}%</div>",
                 unsafe_allow_html=True,
             )
 
@@ -229,7 +237,7 @@ def render(coin: str, days: int):
                 unsafe_allow_html=True
             )
             st.markdown(
-                f"<div style='font-size:23px; font-weight:800; color:white;'>${current_price:,.2f}</div>",
+                f"<div style='font-size:23px; font-weight:800; color:#fff;'>${current_price:,.2f}</div>",
                 unsafe_allow_html=True
             )
         with c2:
@@ -238,7 +246,7 @@ def render(coin: str, days: int):
                 unsafe_allow_html=True
             )
             st.markdown(
-                f"<div style='font-size:23px; font-weight:800; color:white;'>{pred['modelName']}</div>",
+                f"<div style='font-size:23px; font-weight:800; color:#fff;'>{pred['modelName']}</div>",
                 unsafe_allow_html=True
             )
 

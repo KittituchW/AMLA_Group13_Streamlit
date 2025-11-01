@@ -1,62 +1,47 @@
 import streamlit as st
 
 def render():
-    st.markdown("## 👥 Project Team")
-    st.markdown("<p style='text-align:center; color:rgba(255,255,255,0.7);'>Meet the team behind AMLA AT3 — Crypto Price Prediction Dashboard</p>", unsafe_allow_html=True)
+    # ===== PROJECT TEAM HEADER =====
+    st.markdown("<h2 style='color:#fff; margin:0;'>Project Team</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align:center; color:rgba(255,255,255,0.7);'>"
+        "Meet the team behind AMLA AT3 — Crypto Price Prediction Dashboard</p>",
+        unsafe_allow_html=True
+    )
 
-    # ===== Team Members =====
+    # ===== TEAM MEMBER CARDS =====
     team_members = [
         {
             "emoji": "🐱",
             "name": "Kittituch Wongwatcharapaiboon",
             "Student ID": "25544646",
             "role": "Linear Regression",
-            "metrics": {
-                "RMSE": "126.09",
-                "MAE": "92.26",
-                "MAPE": "2.88%",
-                "R²": "0.94"
-            },
-            "university": "UTS - University of Technology Sydney"
+            "metrics": {"RMSE": "126.09", "MAE": "92.26", "MAPE": "2.88%", "R²": "0.94"},
+            "university": "UTS - University of Technology Sydney",
         },
         {
             "emoji": "🦊",
             "name": "Ratticha Ratanawarocha",
             "Student ID": "24996427",
             "role": "LightGBM",
-            "metrics": {
-                "RMSE": "0.09",
-                "MAE": "0.04",
-                "MAPE": "4.01%",
-                "R²": "0.97"
-            },
-            "university": "UTS - University of Technology Sydney"
+            "metrics": {"RMSE": "0.09", "MAE": "0.04", "MAPE": "4.01%", "R²": "0.97"},
+            "university": "UTS - University of Technology Sydney",
         },
         {
             "emoji": "🐼",
             "name": "Shawya Saito",
             "Student ID": "25552249",
             "role": "XGBoost",
-            "metrics": {
-                "RMSE": "8.65",
-                "MAE": "6.50",
-                "MAPE": "3.58%",
-                "R²": "0.95"
-            },
-            "university": "UTS - University of Technology Sydney"
+            "metrics": {"RMSE": "8.65", "MAE": "6.50", "MAPE": "3.58%", "R²": "0.95"},
+            "university": "UTS - University of Technology Sydney",
         },
         {
             "emoji": "🦁",
             "name": "Dylan Jun Jie Leong",
             "Student ID": "25400603",
             "role": "CatBoost",
-            "metrics": {
-                "RMSE": "159.76",
-                "MAE": "126.45",
-                "MAPE": "2.74%",
-                "R²": "0.960"
-            },
-            "university": "UTS - University of Technology Sydney"
+            "metrics": {"RMSE": "159.76", "MAE": "126.45", "MAPE": "2.74%", "R²": "0.960"},
+            "university": "UTS - University of Technology Sydney",
         },
     ]
 
@@ -67,7 +52,8 @@ def render():
             if i + j < len(team_members):
                 member = team_members[i + j]
                 metrics_html = "".join(
-                    f"<div style='display:flex; justify-content:space-between;'><span>{k}</span><span><b>{v}</b></span></div>"
+                    f"<div style='display:flex; justify-content:space-between;'>"
+                    f"<span>{k}</span><span><b>{v}</b></span></div>"
                     for k, v in member["metrics"].items()
                 )
                 with col:
@@ -81,11 +67,15 @@ def render():
                             margin-bottom:20px;
                             box-shadow:0 0 20px rgba(0,0,0,0.35);
                         ">
-                            <div style="font-size:1.2rem; font-weight:700;">{member['emoji']} {member['name']}</div>
-                            <div style="color:rgba(255,255,255,0.8); font-size:0.95rem; margin-bottom:12px;">
-                                 {member['role']}
+                            <div style="font-size:1.2rem; font-weight:700; color:#fff;">
+                                {member['emoji']} {member['name']}
                             </div>
-                            <div style="font-weight:600; margin-top:6px; font-size:0.9rem;">Model Metrics</div>
+                            <div style="color:rgba(255,255,255,0.8); font-size:0.95rem; margin-bottom:12px;">
+                                {member['role']}
+                            </div>
+                            <div style="font-weight:600; margin-top:6px; font-size:0.9rem; color:#fff;">
+                                Model Metrics
+                            </div>
                             <div style="color:rgba(255,255,255,0.85); font-size:0.9rem; margin-bottom:14px;">
                                 {metrics_html}
                             </div>
@@ -100,11 +90,11 @@ def render():
                             </div>
                         </div>
                         """,
-                        unsafe_allow_html=True
+                        unsafe_allow_html=True,
                     )
 
-    # ===== About This Project =====
-    st.markdown("## About This Project")
+    # ===== ABOUT THIS PROJECT =====
+    st.markdown("<h2 style='color:#fff; margin-top:6px;'>About This Project</h2>", unsafe_allow_html=True)
     st.markdown(
         """
         <div style="
@@ -132,5 +122,5 @@ def render():
         </p>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )

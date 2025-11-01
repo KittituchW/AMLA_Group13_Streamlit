@@ -47,6 +47,37 @@ def style_sidebar():
             color: white !important;
             transition: color 0.2s ease;
         }
+        /* "Overview – COIN" and "Price History – COIN" titles */
+        h2, h3, h4, h5, h6 {
+            color: white !important;
+        }
+
+        /* KPI titles and values (Last Close, 24h High, etc.) */
+        .kpi-header, .kpi-value {
+            color: white !important;
+        }
+
+        /* Change and delta colors stay the same for contrast */
+        .kpi-delta-pos { color: #22c55e !important; }
+        .kpi-delta-neg { color: #ef4444 !important; }
+
+        /* Caption under chart */
+        [data-testid="stMarkdownContainer"] p {
+            color: rgba(255,255,255,0.75) !important;
+        }
+
+        /* ----- OHLC + INDICATORS TAB TEXT COLORS ----- */
+
+        /* Section titles */
+        h2, h3, h4 {
+            color: white !important;
+        }
+
+        /* Plot captions (like "Guide: Oversold < 30...") */
+        [data-testid="stMarkdownContainer"] p {
+            color: rgba(255,255,255,0.8) !important;
+        }
+
 
         [data-baseweb="tab-list"] button[aria-selected="true"] p {
             color: #ff4b4b !important; /* bright red */
