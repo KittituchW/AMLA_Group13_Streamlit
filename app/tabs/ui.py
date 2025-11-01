@@ -39,6 +39,19 @@ def style_sidebar():
         [data-testid="stSidebar"] .stCaption {
             color: white !important;
         }
+        /* Force selectbox text (selected value + dropdown items) to white */
+        [data-testid="stSidebar"] [data-baseweb="select"] * {
+            color: white !important;
+        }
+        [data-baseweb="tab-list"] button p {
+            color: white !important;
+            transition: color 0.2s ease;
+        }
+
+        [data-baseweb="tab-list"] button[aria-selected="true"] p {
+            color: #ff4b4b !important; /* bright red */
+            font-weight: 700;
+        }
         /* Card container */
         [data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.card-title){
             background: rgba(255,255,255,.045);
