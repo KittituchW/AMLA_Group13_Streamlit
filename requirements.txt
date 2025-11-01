@@ -1,5 +1,4 @@
 # --- Main dependencies ---
-python==3.11.4
 scikit-learn==1.5.1
 pandas==2.2.2
 jupyterlab==4.2.3
@@ -12,3 +11,5 @@ hyperopt==0.2.7
 lightgbm==4.4.0
 lime==0.2.0.1
 wandb==0.17.4
+requests>=2.32.3
+plotly>=5.24.1

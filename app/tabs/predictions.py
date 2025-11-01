@@ -31,7 +31,7 @@ COIN_TO_MODULE = {
 
 # Map coin -> exact endpoint suffix (case-sensitive as per your APIs)
 COIN_TO_ENDPOINT = {
-    "BTC": "btcusd",
+    "BTC": "bitcoin",
     "ETH": "ETHUSD",
     "SOL": "SOLUSD",
     "XRP": "xrp",
@@ -119,27 +119,45 @@ def _fetch_api_prediction(module, endpoint_suffix: str, price: float) -> dict:
         base = base[: -len("/predict")]
 
     url = f"{base}/predict/{endpoint_suffix}"
-    res = requests.get(url, params={"price": price}, timeout=10)
 
-    if res.status_code != 200:
-        st.error(f"API {url} returned {res.status_code}: {res.text}")
+    try:
+        res = _http_session().get(url, params={"price": float(price)}, timeout=10)
+        res.raise_for_status()
+    except Exception as e:
+        st.error(f"Error calling API {url}: {e}")
         st.stop()
 
-    data = res.json()
-    model_name = getattr(module, "MODEL_NAME", None)
-    if model_name:
-        data["modelName"] = model_name
-
-    # Accept either key name
-    if "predictedHigh" not in data and "predicted_next_day_high" in data:
-        data["predictedHigh"] = data["predicted_next_day_high"]
-
-    # only check required keys
-    if not all(k in data for k in ("predictedHigh", "modelName")):
-        st.error(f"API response missing required keys. Got: {data}")
+    try:
+        raw = res.json()
+    except Exception:
+        st.error(f"API {url} did not return valid JSON. Got: {res.text[:300]}")
         st.stop()
 
-    return data
+    # handle nested prediction key
+    data = raw.get("prediction", raw)
+
+    # try to extract only from these keys
+    pred_val = None
+    for key in ["bitcoin_predicted_next_day_high", "predicted_next_day_high"]:
+        if key in data:
+            pred_val = data[key]
+            break
+
+    if pred_val is None:
+        st.error(f"Expected keys not found. Got: {data}")
+        st.stop()
+
+    try:
+        predicted_high = float(pred_val)
+    except Exception:
+        st.error(f"Value under key is not numeric: {pred_val}")
+        st.stop()
+
+    # optional model name
+    model_name = getattr(module, "MODEL_NAME", "Unknown")
+
+    return {"predictedHigh": predicted_high, "modelName": model_name}
+
 
 
 def render(coin: str, days: int):

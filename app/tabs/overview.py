@@ -3,8 +3,8 @@ import streamlit as st
 from data import generate_ohlc_data   # use from app.data if you kept package imports
 
 def render(coin: str, days: int):
-    st.subheader(f"📊 Overview — {coin}")
-
+    st.subheader(f"Overview — {coin}")
+    
     df = generate_ohlc_data(coin, days)
     latest, prev = df.iloc[-1], df.iloc[-2]
     change24 = (latest.close - prev.close) / max(prev.close, 1e-6) * 100
@@ -48,7 +48,7 @@ def render(coin: str, days: int):
     # ===== Chart (still in its own big card) =====
     with st.container():
         # st.markdown("<div class='as-card'></div>", unsafe_allow_html=True)
-        st.markdown(f"### 📈 Price History – {coin}")
+        st.markdown(f"### Price History – {coin}")
         fig = px.line(df, x="date", y="close", title=None)
         fig.update_layout(
             template="plotly_dark",
