@@ -65,6 +65,18 @@ def style_sidebar():
         [data-testid="stMarkdownContainer"] p {
             color: rgba(255,255,255,0.75) !important;
         }
+        /* Make all Streamlit buttons have a grey border */
+        button[kind="secondary"], div[data-testid="stButton"] button {
+            border: 1px solid rgba(200, 200, 200, 0.6) !important;
+            color: #fff !important;
+            background-color: transparent !important;
+        }
+
+        /* Optional hover effect */
+        div[data-testid="stButton"] button:hover {
+            border-color: rgba(255, 255, 255, 0.9) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
 
         /* ----- OHLC + INDICATORS TAB TEXT COLORS ----- */
 
