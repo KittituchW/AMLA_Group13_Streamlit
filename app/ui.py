@@ -27,7 +27,16 @@ def style_sidebar():
             padding: 1rem .6rem 1.4rem .6rem;
         }
         [data-testid="stSidebar"] .subtitle,
-        [data-testid="stSidebar"] .card-title {
+        [data-testid="stSidebar"] .card-title,
+        [data-testid="stSidebar"] .subtitle,
+        [data-testid="stSidebar"] .card-title,
+        [data-testid="stSidebar"] h1,
+        [data-testid="stSidebar"] h2,
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] h4,
+        [data-testid="stSidebar"] h5,
+        [data-testid="stSidebar"] .stMarkdown,
+        [data-testid="stSidebar"] .stCaption {
             color: white !important;
         }
         /* Card container */
