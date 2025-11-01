@@ -4,6 +4,20 @@ def style_sidebar():
     st.markdown(
         """
         <style>
+        @media (prefers-color-scheme: light) {
+        body, [data-testid="stSidebar"] {
+            color: #0b0e1b !important; /* dark text for light mode */
+        }
+        .faded, .subtitle {
+            color: rgba(0,0,0,.6) !important;
+        }
+        }
+
+        @media (prefers-color-scheme: dark) {
+        body, [data-testid="stSidebar"] {
+            color: #fff !important; /* white text for dark mode */
+        }
+        }
         /* Sidebar background */
         [data-testid="stSidebar"]{
             background: radial-gradient(1100px 680px at 28% 18%, #1a1f3b 0%, #0f142a 55%, #0b0e1b 100%);
@@ -12,7 +26,10 @@ def style_sidebar():
         [data-testid="stSidebar"] .block-container{
             padding: 1rem .6rem 1.4rem .6rem;
         }
-
+        [data-testid="stSidebar"] .subtitle,
+        [data-testid="stSidebar"] .card-title {
+            color: white !important;
+        }
         /* Card container */
         [data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.card-title){
             background: rgba(255,255,255,.045);

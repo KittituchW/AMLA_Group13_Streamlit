@@ -9,43 +9,47 @@ def render():
         {
             "emoji": "🐱",
             "name": "Kittituch Wongwatcharapaiboon",
-            "role": "Machine Learning Engineer (Linear Regression)",
+            "Student ID": "25544646",
+            "role": "Linear Regression",
             "metrics": {
-                "RMSE": "187.45",
-                "MAE": "152.30",
-                "MAPE": "3.27%",
-                "R²": "0.941"
+                "RMSE": "126.09",
+                "MAE": "92.26",
+                "MAPE": "2.88%",
+                "R²": "0.94"
             },
             "university": "UTS - University of Technology Sydney"
         },
         {
             "emoji": "🦊",
             "name": "Ratticha Ratanawarocha",
-            "role": "Data Scientist (LightGBM)",
+            "Student ID": "24996427",
+            "role": "LightGBM",
             "metrics": {
-                "RMSE": "165.83",
-                "MAE": "129.67",
-                "MAPE": "2.89%",
-                "R²": "0.955"
+                "RMSE": "0.09",
+                "MAE": "0.04",
+                "MAPE": "4.01%",
+                "R²": "0.97"
             },
             "university": "UTS - University of Technology Sydney"
         },
         {
             "emoji": "🐼",
             "name": "Shawya Saito",
-            "role": "AI Researcher (XGBoost)",
+            "Student ID": "25552249",
+            "role": "XGBoost",
             "metrics": {
-                "RMSE": "142.54",
-                "MAE": "113.12",
-                "MAPE": "2.45%",
-                "R²": "0.972"
+                "RMSE": "8.65",
+                "MAE": "6.50",
+                "MAPE": "3.58%",
+                "R²": "0.95"
             },
             "university": "UTS - University of Technology Sydney"
         },
         {
             "emoji": "🦁",
             "name": "Dylan Jun Jie Leong",
-            "role": "Data Analyst (CatBoost)",
+            "Student ID": "25400603",
+            "role": "CatBoost",
             "metrics": {
                 "RMSE": "159.76",
                 "MAE": "126.45",

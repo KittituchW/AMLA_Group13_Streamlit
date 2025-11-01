@@ -51,8 +51,6 @@ with st.sidebar:
         st.markdown("<div class='card-title toggle-row'>Show Indicators <span></span></div>", unsafe_allow_html=True)
         show_ind = st.toggle(" ", value=True, label_visibility="collapsed", key="show_ind_toggle")
 
-    st.markdown("<hr class='side'/>", unsafe_allow_html=True)
-    st.markdown("<div class='faded'>Mock Data Dashboard<br/>Educational Use Only</div>", unsafe_allow_html=True)
 
     prewarm_prediction_for_coin(coin)
 
