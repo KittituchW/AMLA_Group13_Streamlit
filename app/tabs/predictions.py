@@ -4,11 +4,9 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 import sys
-import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import requests.exceptions as req_exc
-
 
 # --- ensure repo root is importable (students/ is outside app/) ---
 ROOT = Path(__file__).resolve().parents[2]
@@ -37,15 +35,18 @@ COIN_TO_ENDPOINT = {
     "XRP": "xrp",
 }
 
-# A tiny cache for the HTTP session so we reuse connections
+# -----------------------------
+# Networking helpers & caching
+# -----------------------------
 @st.cache_resource
 def _http_session():
+    """Reusable HTTP session with retries."""
     s = requests.Session()
     s.headers.update({"User-Agent": "CryptoInsight/1.0"})
 
     retry = Retry(
-        total=2,                 # small retry count to keep UX snappy
-        backoff_factor=0.6,     # 0.6s, 1.2s ...
+        total=2,
+        backoff_factor=0.6,  # 0.6s, 1.2s ...
         status_forcelist=[408, 429, 500, 502, 503, 504, 522, 524],
         allowed_methods=["GET", "POST"],
         raise_on_status=False,
@@ -55,11 +56,10 @@ def _http_session():
     s.mount("http://", adapter)
     return s
 
-@st.cache_data(ttl=60)
+@st.cache_data(ttl=1800)
 def _check_health_url(api_url: str) -> bool:
     """Try /health if it exists, else do a tiny predict probe."""
     base = api_url.rstrip("/")
-    # Prefer /health if available
     try:
         r = _http_session().get(f"{base}/health", timeout=3)
         if r.ok:
@@ -67,10 +67,7 @@ def _check_health_url(api_url: str) -> bool:
     except Exception:
         pass
 
-    # Fallback: tiny predict (works for your /predict/<coin>?price=)
     try:
-        # Pick a default coin endpoint that exists in your mapping
-        # We call a *very cheap* predict to force cold-start load.
         fallback_coin = next(iter(COIN_TO_ENDPOINT.values()))
         url = f"{base}/predict/{fallback_coin}"
         r = _http_session().get(url, params={"price": 1.0}, timeout=5)
@@ -80,7 +77,6 @@ def _check_health_url(api_url: str) -> bool:
 
 def prewarm_prediction_for_coin(coin: str) -> bool:
     """Pre-warm the specific student's API behind the chosen coin."""
-    # Avoid repeated work in one session
     ready_key = f"pred_ready_{coin}"
     if st.session_state.get(ready_key):
         return True
@@ -88,14 +84,12 @@ def prewarm_prediction_for_coin(coin: str) -> bool:
     module = _get_student_module(coin)
     api_url = getattr(module, "API_URL", None)
     if not api_url:
-        # No API to warm, consider it ready (prevents tab errors)
         st.session_state[ready_key] = True
         return True
 
     ok = _check_health_url(api_url)
     st.session_state[ready_key] = bool(ok)
     return bool(ok)
-
 
 def _get_student_module(coin: str):
     mod_path = COIN_TO_MODULE.get(coin)
@@ -109,6 +103,7 @@ def _get_student_module(coin: str):
         st.stop()
 
 def _fetch_api_prediction(module, endpoint_suffix: str, price: float) -> dict:
+    """Call student API and normalize the response to a unified dict."""
     api_url = getattr(module, "API_URL", None)
     if not api_url:
         st.error(f"{module.__name__} has no API_URL defined.")
@@ -158,13 +153,13 @@ def _fetch_api_prediction(module, endpoint_suffix: str, price: float) -> dict:
 
     return {"predictedHigh": predicted_high, "modelName": model_name}
 
-
-
+# -----------------------------
+# UI render
+# -----------------------------
 def render(coin: str, days: int):
     # ---------- HEADER ----------
     col_title, col_btn = st.columns([6, 1])
     with col_title:
-        # was: st.subheader(f"Tomorrow's Predicted HIGH — {coin}")
         st.markdown(
             f"<h2 style='color:#fff; margin:0;'>Tomorrow's Predicted HIGH — {coin}</h2>",
             unsafe_allow_html=True
@@ -173,6 +168,12 @@ def render(coin: str, days: int):
         st.markdown("<div style='text-align:right;'>", unsafe_allow_html=True)
         refresh_clicked = st.button("↻ Refresh", use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
+
+    # ---------- HARD REFRESH ----------
+    if refresh_clicked:
+        st.cache_data.clear()
+        st.cache_resource.clear()
+        st.rerun()  
 
     # ---------- PREWARM GUARD ----------
     ready_key = f"pred_ready_{coin}"
@@ -203,11 +204,10 @@ def render(coin: str, days: int):
         st.stop()
 
     pred = _fetch_api_prediction(module, endpoint_suffix, current_price)
-
     delta_pct = (pred["predictedHigh"] - current_price) / max(current_price, 1e-6) * 100
 
+    # ---------- PRESENTATION ----------
     with st.container():
-        # was: st.caption(f"Based on {pred['modelName']}")
         st.markdown(
             f"<div style='color:rgba(255,255,255,.8); font-size:.9rem; margin-top:2px;'>"
             f"Based on {pred['modelName']}"
@@ -221,7 +221,6 @@ def render(coin: str, days: int):
                 f"<div style='font-size:40px; font-weight:800; color:#fff;'>${pred['predictedHigh']:,.2f}</div>",
                 unsafe_allow_html=True,
             )
-        # was: with cols[0]:   <-- this caused the pill to stack under the number
         with cols[1]:
             pill_color = "#22c55e" if delta_pct >= 0 else "#ef4444"
             st.markdown(
@@ -249,5 +248,3 @@ def render(coin: str, days: int):
                 f"<div style='font-size:23px; font-weight:800; color:#fff;'>{pred['modelName']}</div>",
                 unsafe_allow_html=True
             )
-
-

@@ -40,7 +40,7 @@ def render():
             "name": "Dylan Jun Jie Leong",
             "Student ID": "25400603",
             "role": "CatBoost",
-            "metrics": {"RMSE": "159.76", "MAE": "126.45", "MAPE": "2.74%", "R²": "0.960"},
+            "metrics": {"RMSE": "2653.13", "MAE": "2020.60", "MAPE": "1.76%", "R²": "0.63"},
             "university": "UTS - University of Technology Sydney",
         },
     ]
