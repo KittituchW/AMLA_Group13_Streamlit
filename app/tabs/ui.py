@@ -11,8 +11,16 @@ def style_sidebar():
         .faded, .subtitle {
             color: rgba(0,0,0,.6) !important;
         }
-        }
 
+        .disclaimer-text {
+                font-size: 0.7rem !important;
+                font-weight: normal !important;
+                color: rgba(255, 255, 255, 0.7);
+                line-height: 1.4;
+                text-align: left;
+                margin-top: 8px;
+                margin-left: 0;
+            }
         @media (prefers-color-scheme: dark) {
         body, [data-testid="stSidebar"] {
             color: #fff !important; /* white text for dark mode */

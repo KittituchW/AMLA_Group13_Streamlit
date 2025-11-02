@@ -50,9 +50,22 @@ with st.sidebar:
     with st.container():
         st.markdown("<div class='card-title toggle-row'>Show Indicators <span></span></div>", unsafe_allow_html=True)
         show_ind = st.toggle(" ", value=True, label_visibility="collapsed", key="show_ind_toggle")
-
+    
+    with st.container():
+        st.markdown(
+            """
+            <div class="disclaimer-text">
+            <strong>Disclaimer:</strong><br>
+            This service is for informational purposes only and not financial advice. 
+            No guarantee is made on model accuracy. Always do your own research or consult 
+            a licensed professional before making investment decisions.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     prewarm_prediction_for_coin(coin)
+
 
 # ---------- Tabs ----------
 tab_overview, tab_ohlc, tab_pred, tab_students = st.tabs(
