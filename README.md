@@ -21,6 +21,43 @@ Since the API doesn’t provide technical indicators, the application **computes
 
 ---
 
+## 🗂️ Project Structure
+
+The repository is organized to keep the Streamlit web app, API integration, and model files modular and easy to maintain.
+
+```bash
+AMLA_GROUP13_STREAMLIT/
+│
+├── app/ # Main application folder
+│ ├── .streamlit/ # Streamlit configuration (theme, layout, etc.)
+│ ├── tabs/ # Contains tab pages for Streamlit interface
+│ │ ├── ohlc.py # Handles OHLC data and chart visualization
+│ │ ├── overview.py # Overview page explaining app purpose
+│ │ ├── predictions.py # Tab for displaying real-time predictions
+│ │ ├── team.py # Tab showing team members and model metrics
+│ │ ├── ui.py # User interface helpers and styling
+│ │ └── init.py
+│ │
+│ ├── data.py # Functions for data retrieval and preprocessing
+│ ├── main.py # Main Streamlit entry point
+│ └── init.py
+│
+├── students/ # Individual student model API connections
+│ ├── Dylan.py # Connects to Dylan’s CatBoost model API on Render
+│ ├── Kittituch.py # Connects to Kittituch’s Linear Regression API on Render
+│ ├── Ratticha.py # Connects to Ratticha’s LightGBM API on Render
+│ ├── Shawya.py # Connects to Shawya’s XGBoost API on Render
+│ └── init.py
+│
+├── github.txt # Repository and collaboration notes
+├── poetry.lock # Poetry dependency lock file
+├── pyproject.toml # Project configuration and dependency list
+├── requirements.txt # Dependencies list for pip installation
+├── runtime.txt # Python version for deployment
+└── README.md # Project documentation
+```
+---
+
 ## Main Functionalities
 
 ### 1. Interactive Visualization
