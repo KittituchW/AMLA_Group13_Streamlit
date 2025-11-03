@@ -17,7 +17,7 @@ The app serves as the **front end** for multiple deployed machine learning model
 
 Built with **Streamlit** for simplicity and smooth integration with Python analytics, the app connects directly to **FastAPI endpoints** hosted on **Render**, fetching live data from the **[Kraken OHLC API](https://api.kraken.com/0/public/OHLC)**.
 
-Since the API doesn’t provide technical indicators, the application **computes them locally**—including **RSI**, **moving averages**, and **Bollinger Bands**—before generating visualizations and model inputs.
+Since the API doesn’t provide technical indicators, the application **computes them locally**, including, **RSI** and **moving averages**, before generating visualizations and model inputs.
 
 ---
 
