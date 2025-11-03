@@ -1,4 +1,4 @@
-# 🪙 Crypto Insight – Group 13 (UTS AMLA AT3)
+# Crypto Insight – Group 13 (UTS AMLA AT3)
 
 **Repository:** `AMLA_Group13_Streamlit`  
 **Deployed App:** [Crypto Insight on Streamlit](https://kittituchw-amla-group13-streamlit-appmain-irplhq.streamlit.app/)
@@ -21,7 +21,7 @@ Since the API doesn’t provide technical indicators, the application **computes
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 The repository is organized to keep the Streamlit web app, API integration, and model files modular and easy to maintain.
 
