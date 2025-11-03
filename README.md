@@ -5,7 +5,7 @@
 
 ---
 
-## 📘 Overview
+## Overview
 
 **Crypto Insight** is an interactive web application for **real-time cryptocurrency forecasting and analysis**, developed as part of the **UTS Advanced Machine Learning Applications (AT3)** project.
 
@@ -21,28 +21,28 @@ Since the API doesn’t provide technical indicators, the application **computes
 
 ---
 
-## ⚙️ Main Functionalities
+## Main Functionalities
 
-### 1. 📊 Interactive Visualization
+### 1. Interactive Visualization
 Displays historical **OHLC** data and calculated indicators such as **RSI** and **moving averages** using **Plotly** charts.  
 Users can visually explore price patterns and market trends.
 
-### 2. 🤖 Real-Time Prediction
+### 2. Real-Time Prediction
 Select a cryptocurrency to view the **predicted next-day high price**, generated from the deployed **FastAPI models**.
 
-### 3. 📈 Model Performance Dashboard
+### 3. Model Performance Dashboard
 Compares model performance across all algorithms using key evaluation metrics:  
 **RMSE**, **MAE**, **MAPE**, and **R²**.
 
-### 4. 👥 Team and Model Overview
+### 4. Team and Model Overview
 Shows each team member’s assigned model along with its performance metrics and project role.
 
-### 5. 🔄 Data Refresh and Caching
+### 5. Data Refresh and Caching
 Includes a **refresh button** for updating predictions and cached data with `@st.cache_data`, ensuring fast loading and reduced API calls.
 
 ---
 
-## 🧠 Technology Stack
+## Technology Stack
 
 | Component | Technology |
 |------------|-------------|
@@ -56,7 +56,7 @@ Includes a **refresh button** for updating predictions and cached data with `@st
 
 ---
 
-## 🚀 Setup and Launch Instructions
+## Setup and Launch Instructions
 
 ### 1. Clone the Repository
 ```bash
@@ -89,14 +89,14 @@ This will launch the web application in your browser (usually at http://localhos
 
 ### 4. Access the Deployed Version  
 You can also access the deployed version directly at:  
-👉 [Crypto Insight (Streamlit App)](https://kittituchw-amla-group13-streamlit-appmain-irplhq.streamlit.app/)
+[Crypto Insight (Streamlit App)](https://kittituchw-amla-group13-streamlit-appmain-irplhq.streamlit.app/)
 
 The application connects to the **FastAPI model endpoints on Render**, fetching real-time cryptocurrency predictions and displaying model performance metrics.
 
 ---
 
 
-## 👨‍💻 Team Members
+## Team Members
 
 | Member | Model | Description |
 |--------|--------|-------------|
@@ -106,7 +106,7 @@ The application connects to the **FastAPI model endpoints on Render**, fetching 
 | **Dylan Jun Jie Leong** | CatBoost | BTC model |
 
 
-## 🧭 Project Context
+## Project Context
 
 This project was developed for **Assessment Task 3 (AT3)** of **Advanced Machine Learning Applications (36120)** at the **University of Technology Sydney (UTS)**.  
 It demonstrates **end-to-end model deployment**, **real-time prediction**, and **interactive visualization** for machine learning in financial markets.
